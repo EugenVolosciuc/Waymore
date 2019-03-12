@@ -1,8 +1,11 @@
 const main = document.querySelector("main");
+const container = document.querySelector("#container");
+const sideMenu = document.querySelector("#side-menu");
+const links = document.querySelectorAll(".links");
+const btn = document.querySelector(".btn");
+const backButton = document.querySelector("#back");
 
 // MENU BUTTON TOGGLE
-const btn = document.querySelector(".btn");
-const sideMenu = document.querySelector("#side-menu");
 
 sideMenu.setAttribute("style", "display: none");
 
@@ -11,41 +14,26 @@ btn.addEventListener("click", function (event) {
     this.classList.toggle("not-active");
     if (this.classList.contains("active")) {
         sideMenu.removeAttribute("style", "display: none");
-        sideMenu.classList.toggle("menu-animation-appear");
+        sideMenu.classList.toggle("animation-appear");
     } else if (this.classList.contains("not-active")) {
         sideMenu.setAttribute("style", "display: none");
-        sideMenu.classList.toggle("menu-animation-appear");
+        sideMenu.classList.toggle("animation-appear");
     }
 })
 
 // CONTAINER
-const container = document.querySelector("#container");
-
-// I don't need this code, I guess
-// const nodeSections = document.querySelectorAll("section");
-
-// // Convert nodeSections to array
-// const sections = [];
-// for (let i = 0; i < nodeSections.length; i++) {
-//     var self = nodeSections[i];
-//     sections.push(self);
-// }
-
 function containerToggle(link) {
     link.addEventListener("click", function (event) {
         container.classList.remove("display-none");
+        container.classList.add("animation-appear");
     })
 }
 
 // SECTION TOGGLE
-
-const links = document.querySelectorAll(".links");
-
 function sectionToggle(section) {
-    section.addEventListener("mousedown", function (event) {
+    section.addEventListener("mouseup", function (event) {
         containerToggle(section);
         main.classList.add("darken");
-
     })
 }
 
@@ -54,12 +42,9 @@ for (let i = 0; i < links.length; i++) {
 }
 
 // Go back to main
-const backButton = document.querySelector("#back");
-
-backButton.addEventListener("mousedown", (event) => {
+backButton.addEventListener("mouseup", (event) => {
     container.classList.add("display-none");
     main.classList.remove("darken");
-
 })
 
 // Todo:

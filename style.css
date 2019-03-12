@@ -262,7 +262,7 @@ span+span {
 	border-radius: 5px;
 }
 
-.menu-animation-appear {
+.animation-appear {
 	animation: side-menu-appear 1s forwards;
 }
 
