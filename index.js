@@ -6,6 +6,10 @@ const links = document.querySelectorAll(".links");
 const btn = document.querySelector(".btn");
 const backButton = document.querySelector("#back");
 const sections = document.querySelectorAll("section");
+const logo = document.querySelector("#logo");
+const modal = document.querySelector("#modal");
+const modalImage = document.createElement("img");
+const modalBg = document.querySelector("#modal-bg");
 
 // MENU BUTTON TOGGLE
 sideMenu.setAttribute("style", "display: none");
@@ -39,7 +43,7 @@ function containerToggle() {
 
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('links')) {
-        menuBtnPress();
+        logo.style.opacity = "0";
         const hash = event.target.hash.substr(1);
         sections.forEach(function (section) {
             if (section.id === hash) {
@@ -54,7 +58,8 @@ document.addEventListener('click', function (event) {
 // Go back to main
 function goBack(section) {
     backButton.addEventListener("mouseup", (event) => {
-        menuBtnPress();
+        sideMenu.removeAttribute("style", "display: none");
+        logo.style.opacity = "1";
         section.classList.add("display-none");
         container.classList.add("display-none");
         containerBg.classList.add("display-none");
@@ -62,12 +67,20 @@ function goBack(section) {
     })
 }
 
-// Todo:
-// 1. Clean up the code - ongoing
-// 2. Hide menu when container shows (Update: menu disappears every two times only)
-// 3. Write markup for portraits sections - DONE
-// 4. Make links from menu link to correct section - DONE
-// 5. Make a scroll bar - for later
-// 6. Make logo and motto disappear when sections appear
-// 7. Optimize new images from portraits
-
+// MODAL TOGGLE
+document.addEventListener("click", function (event) {
+    if (event.target.parentElement.classList.contains("img-container")) {
+        modalImage.innerHTML = "";
+        const imageSRC = event.target.attributes[0].value;
+        modalImage.setAttribute("src", imageSRC);
+        modalImage.classList.add("modal-image");
+        modalImage.classList.add("animation-appear");
+        modal.style.display = "inline-block";
+        modalBg.classList.remove("display-none");
+        modalBg.classList.add("container-bg-appear");
+        modal.appendChild(modalImage);
+    } else if (event.target.classList.contains("modal") || event.target.classList.contains("modal-bg")) {
+        modal.style.display = "none";
+        modalBg.classList.add("display-none");
+    }
+})
